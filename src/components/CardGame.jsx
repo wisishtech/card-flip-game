@@ -32,40 +32,41 @@ const Confetti = () => {
 };
 
 const CardStack = ({ currentCard, isActive, stackIndex, onCardClick }) => {
-  return (
-    <div className="relative w-24 h-36">
-      {/* Background cards in stack */}
-      <div className="absolute inset-0 transform translate-y-1">
-        <div className="w-24 h-36 bg-blue-500 rounded-lg">
-          <div className="h-full w-full bg-white bg-opacity-20 rounded-lg"></div>
-        </div>
-      </div>
-      <div className="absolute inset-0 transform translate-y-0.5">
-        <div className="w-24 h-36 bg-blue-500 rounded-lg">
-          <div className="h-full w-full bg-white bg-opacity-20 rounded-lg"></div>
-        </div>
-      </div>
-      {/* Top card that flips */}
-      <div 
-        onClick={() => onCardClick(currentCard, stackIndex)}
-        className={`w-24 h-36 cursor-pointer absolute inset-0 transform transition-transform duration-500 
-          ${isActive ? 'rotate-0' : 'rotate-y-180'}`}
-      >
-        {isActive && currentCard ? (
-          <div className={`flex flex-col items-center justify-center h-full bg-white rounded-lg 
-            ${currentCard.color === 'red' ? 'text-red-500' : 'text-gray-900'}`}>
-            <div className="text-2xl">{currentCard.value}</div>
-            <div className="text-2xl">{currentCard.suit}</div>
-          </div>
-        ) : (
-          <div className="h-full w-full bg-blue-500 rounded-lg">
+    return (
+      <div className="relative w-24 h-36">
+        {/* Background cards in stack */}
+        <div className="absolute inset-0 transform translate-y-2">
+          <div className="w-24 h-36 bg-blue-500 rounded-lg shadow-lg">
             <div className="h-full w-full bg-white bg-opacity-20 rounded-lg"></div>
           </div>
-        )}
+        </div>
+        <div className="absolute inset-0 transform translate-y-1">
+          <div className="w-24 h-36 bg-blue-500 rounded-lg shadow-lg">
+            <div className="h-full w-full bg-white bg-opacity-20 rounded-lg"></div>
+          </div>
+        </div>
+        {/* Top card that flips */}
+        <div 
+          onClick={() => onCardClick(currentCard, stackIndex)}
+          className={`w-24 h-36 cursor-pointer absolute inset-0 transform transition-all duration-500 
+            shadow-xl hover:shadow-2xl
+            ${isActive ? 'rotate-0' : 'rotate-y-180'}`}
+        >
+          {isActive && currentCard ? (
+            <div className={`flex flex-col items-center justify-center h-full bg-white rounded-lg 
+              ${currentCard.color === 'red' ? 'text-red-500' : 'text-gray-900'}`}>
+              <div className="text-2xl">{currentCard.value}</div>
+              <div className="text-2xl">{currentCard.suit}</div>
+            </div>
+          ) : (
+            <div className="h-full w-full bg-blue-500 rounded-lg">
+              <div className="h-full w-full bg-white bg-opacity-20 rounded-lg"></div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 const CardGame = () => {
   const [gameState, setGameState] = useState(GAME_STATES.INTRO);
