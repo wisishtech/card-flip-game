@@ -56,20 +56,16 @@ const CardStack = ({ currentCard, isActive, stackIndex, onCardClick }) => {
         </div>
       </div>
       
-      {/* Flipping card container */}
+      {/* Flipping card container - with TRUE 3D effect */}
       <div 
         onClick={() => onCardClick(currentCard, stackIndex)}
-        className="card-container w-40 h-56 cursor-pointer absolute inset-0 transition-all duration-500"
+        className="card-container absolute inset-0 w-40 h-56 cursor-pointer"
         style={{ 
-          transformStyle: 'preserve-3d', 
           transform: isActive ? 'rotateY(180deg)' : 'rotateY(0deg)'
         }}
       >
         {/* Card Back (Initial visible side) */}
-        <div 
-          className="absolute inset-0 w-full h-full rounded-xl shadow-xl overflow-hidden"
-          style={{ backfaceVisibility: 'hidden' }}
-        >
+        <div className="card-back absolute inset-0 w-full h-full overflow-hidden">
           <img 
             src={CARD_BACK_IMAGE} 
             alt="Card back" 
@@ -78,10 +74,7 @@ const CardStack = ({ currentCard, isActive, stackIndex, onCardClick }) => {
         </div>
         
         {/* Card Front (Value side - initially hidden) */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-white rounded-xl shadow-xl"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-        >
+        <div className="card-front absolute inset-0 w-full h-full bg-white">
           {currentCard && (
             <div className={`flex flex-col items-center justify-center h-full
               ${currentCard.color === 'red' ? 'text-red-500' : 'text-gray-900'}`}>
@@ -108,6 +101,7 @@ const CardGame = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [activeStackIndex, setActiveStackIndex] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false); // State to track animation
 
   // Initialize deck from JSON data
   const createDeck = useCallback(() => {
@@ -149,7 +143,7 @@ const CardGame = () => {
 
   // Handle card click
   const handleCardClick = useCallback((card, stackIndex) => {
-    if (stackIndex !== activeStackIndex || isPaused || !card) return;
+    if (stackIndex !== activeStackIndex || isPaused || !card || isAnimating) return;
 
     // Using isCorrect from the JSON data
     if (card.isCorrect) {
@@ -161,7 +155,7 @@ const CardGame = () => {
     
     // Force the card to flip back immediately after interaction
     setActiveStackIndex(null);
-  }, [activeStackIndex, isPaused]);
+  }, [activeStackIndex, isPaused, isAnimating]);
 
   // Celebration effect for correct answers
   const triggerConfetti = () => {
@@ -197,18 +191,19 @@ const CardGame = () => {
   useEffect(() => {
     if (gameState !== GAME_STATES.PLAYING || isPaused) return;
     
-    // Simple, clear card cycle:
-    // 1. Show card (by setting active stack index)
-    // 2. Wait for CARD_DISPLAY_TIME
-    // 3. Hide card (by setting active stack index to null)
-    // 4. Repeat
-    
-    const interval = setInterval(() => {
+    // Function to handle the entire card cycle
+    const showNextCard = () => {
+      // Only proceed if not currently animating
+      if (isAnimating) return;
+      
       // If there's already an active card, hide it first
       if (activeStackIndex !== null) {
+        setIsAnimating(true);
         setActiveStackIndex(null);
-        // Wait a bit before showing the next card
+        
+        // Wait for flip back animation to complete
         setTimeout(() => {
+          // Select new card and stack
           const stackIndex = Math.floor(Math.random() * STACKS_COUNT);
           const newCard = getRandomCard();
           
@@ -219,11 +214,18 @@ const CardGame = () => {
             return newCards;
           });
           
-          // Make the stack active (flipping the card)
-          setActiveStackIndex(stackIndex);
-        }, 500); // Half-second pause between cards
+          // Brief pause before showing the card
+          setTimeout(() => {
+            // Make the stack active (flips the card)
+            setActiveStackIndex(stackIndex);
+            
+            // Animation is done, card is visible
+            setIsAnimating(false);
+          }, 300);
+        }, 1500); // Wait for full animation duration
       } else {
-        // Show a new card
+        // No active card, show a new one
+        setIsAnimating(true);
         const stackIndex = Math.floor(Math.random() * STACKS_COUNT);
         const newCard = getRandomCard();
         
@@ -234,11 +236,17 @@ const CardGame = () => {
         });
         
         setActiveStackIndex(stackIndex);
+        setIsAnimating(false);
       }
+    };
+    
+    // Set up interval to show cards
+    const interval = setInterval(() => {
+      showNextCard();
     }, CARD_DISPLAY_TIME);
     
     return () => clearInterval(interval);
-  }, [gameState, isPaused, getRandomCard, activeStackIndex]);
+  }, [gameState, isPaused, getRandomCard, activeStackIndex, isAnimating]);
 
   const formatTime = useCallback((seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -373,6 +381,27 @@ const CardGame = () => {
           
           .shake {
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+          }
+          
+          /* Enhanced 3D flip effect */
+          .card-container {
+            transition: transform 1.5s;
+            transform-style: preserve-3d;
+          }
+          
+          .card-container .card-front,
+          .card-container .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          }
+          
+          .card-container .card-front {
+            transform: rotateY(180deg);
           }
         `}
       </style>
