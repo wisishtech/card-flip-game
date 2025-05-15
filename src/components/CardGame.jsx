@@ -11,7 +11,7 @@ const GAME_STATES = {
 };
 
 const GAME_DURATION = 180; // 3 minutes in seconds
-const CARD_FLIP_INTERVAL = 4000; // 4 seconds - increased for kids
+const CARD_DISPLAY_TIME = 3000; // 3 seconds per card display (adjust as needed for kids)
 const WARNING_TIME = 20; // 20 seconds remaining
 const STACKS_COUNT = 3;
 
@@ -59,7 +59,7 @@ const CardStack = ({ currentCard, isActive, stackIndex, onCardClick }) => {
       {/* Flipping card container */}
       <div 
         onClick={() => onCardClick(currentCard, stackIndex)}
-        className="card-container w-40 h-56 cursor-pointer absolute inset-0 transition-all duration-1000"
+        className="card-container w-40 h-56 cursor-pointer absolute inset-0 transition-all duration-500"
         style={{ 
           transformStyle: 'preserve-3d', 
           transform: isActive ? 'rotateY(180deg)' : 'rotateY(0deg)'
@@ -158,6 +158,9 @@ const CardGame = () => {
     } else {
       showWrongAnswer();
     }
+    
+    // Force the card to flip back immediately after interaction
+    setActiveStackIndex(null);
   }, [activeStackIndex, isPaused]);
 
   // Celebration effect for correct answers
@@ -190,53 +193,52 @@ const CardGame = () => {
     return () => clearInterval(timer);
   }, [gameState, isPaused]);
 
-  // Card flip effect
+  // SIMPLIFIED Card display management
   useEffect(() => {
     if (gameState !== GAME_STATES.PLAYING || isPaused) return;
-
-    let flipTimeout;
-    let resetTimeout;
-
-    const flipCard = () => {
+    
+    // Simple, clear card cycle:
+    // 1. Show card (by setting active stack index)
+    // 2. Wait for CARD_DISPLAY_TIME
+    // 3. Hide card (by setting active stack index to null)
+    // 4. Repeat
+    
+    const interval = setInterval(() => {
+      // If there's already an active card, hide it first
       if (activeStackIndex !== null) {
         setActiveStackIndex(null);
+        // Wait a bit before showing the next card
+        setTimeout(() => {
+          const stackIndex = Math.floor(Math.random() * STACKS_COUNT);
+          const newCard = getRandomCard();
+          
+          // Update the card in the chosen stack
+          setCurrentCards(prev => {
+            const newCards = [...prev];
+            newCards[stackIndex] = newCard;
+            return newCards;
+          });
+          
+          // Make the stack active (flipping the card)
+          setActiveStackIndex(stackIndex);
+        }, 500); // Half-second pause between cards
+      } else {
+        // Show a new card
+        const stackIndex = Math.floor(Math.random() * STACKS_COUNT);
+        const newCard = getRandomCard();
+        
         setCurrentCards(prev => {
           const newCards = [...prev];
-          newCards[activeStackIndex] = null;
+          newCards[stackIndex] = newCard;
           return newCards;
         });
         
-        resetTimeout = setTimeout(() => {
-          const newStackIndex = Math.floor(Math.random() * STACKS_COUNT);
-          const newCard = getRandomCard();
-          setCurrentCards(prev => {
-            const newCards = [...prev];
-            newCards[newStackIndex] = newCard;
-            return newCards;
-          });
-          setActiveStackIndex(newStackIndex);
-          flipTimeout = setTimeout(flipCard, CARD_FLIP_INTERVAL);
-        }, 500);
-      } else {
-        const newStackIndex = Math.floor(Math.random() * STACKS_COUNT);
-        const newCard = getRandomCard();
-        setCurrentCards(prev => {
-          const newCards = [...prev];
-          newCards[newStackIndex] = newCard;
-          return newCards;
-        });
-        setActiveStackIndex(newStackIndex);
-        flipTimeout = setTimeout(flipCard, CARD_FLIP_INTERVAL);
+        setActiveStackIndex(stackIndex);
       }
-    };
-
-    flipTimeout = setTimeout(flipCard, 1000);
-
-    return () => {
-      clearTimeout(flipTimeout);
-      clearTimeout(resetTimeout);
-    };
-  }, [gameState, isPaused, activeStackIndex, getRandomCard]);
+    }, CARD_DISPLAY_TIME);
+    
+    return () => clearInterval(interval);
+  }, [gameState, isPaused, getRandomCard, activeStackIndex]);
 
   const formatTime = useCallback((seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -265,8 +267,8 @@ const CardGame = () => {
             </div>
             <p className="text-lg text-white">
               Watch for cards greater than 6 and click them quickly! 
-              Each correct pick earns you 5 points. Cards will randomly appear
-              every 3 seconds.
+              Each correct pick earns you 5 points. Cards will appear
+              for {CARD_DISPLAY_TIME/1000} seconds at a time.
             </p>
             <button 
               onClick={startGame}
@@ -341,7 +343,6 @@ const CardGame = () => {
         )}
       </div>
 
-      {/* Fixed style tag - removed jsx and global attributes */}
       <style>
         {`
           .perspective-1000 {
