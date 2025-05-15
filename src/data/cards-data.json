@@ -1,0 +1,418 @@
+[
+  {
+    "id": 1,
+    "suit": "♠",
+    "value": "A",
+    "numericValue": 1,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 2,
+    "suit": "♠",
+    "value": "2",
+    "numericValue": 2,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 3,
+    "suit": "♠",
+    "value": "3",
+    "numericValue": 3,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 4,
+    "suit": "♠",
+    "value": "4",
+    "numericValue": 4,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 5,
+    "suit": "♠",
+    "value": "5",
+    "numericValue": 5,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 6,
+    "suit": "♠",
+    "value": "6",
+    "numericValue": 6,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 7,
+    "suit": "♠",
+    "value": "7",
+    "numericValue": 7,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 8,
+    "suit": "♠",
+    "value": "8",
+    "numericValue": 8,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 9,
+    "suit": "♠",
+    "value": "9",
+    "numericValue": 9,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 10,
+    "suit": "♠",
+    "value": "10",
+    "numericValue": 10,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 11,
+    "suit": "♠",
+    "value": "J",
+    "numericValue": 11,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 12,
+    "suit": "♠",
+    "value": "Q",
+    "numericValue": 12,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 13,
+    "suit": "♠",
+    "value": "K",
+    "numericValue": 13,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 14,
+    "suit": "♥",
+    "value": "A",
+    "numericValue": 1,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 15,
+    "suit": "♥",
+    "value": "2",
+    "numericValue": 2,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 16,
+    "suit": "♥",
+    "value": "3",
+    "numericValue": 3,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 17,
+    "suit": "♥",
+    "value": "4",
+    "numericValue": 4,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 18,
+    "suit": "♥",
+    "value": "5",
+    "numericValue": 5,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 19,
+    "suit": "♥",
+    "value": "6",
+    "numericValue": 6,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 20,
+    "suit": "♥",
+    "value": "7",
+    "numericValue": 7,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 21,
+    "suit": "♥",
+    "value": "8",
+    "numericValue": 8,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 22,
+    "suit": "♥",
+    "value": "9",
+    "numericValue": 9,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 23,
+    "suit": "♥",
+    "value": "10",
+    "numericValue": 10,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 24,
+    "suit": "♥",
+    "value": "J",
+    "numericValue": 11,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 25,
+    "suit": "♥",
+    "value": "Q",
+    "numericValue": 12,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 26,
+    "suit": "♥",
+    "value": "K",
+    "numericValue": 13,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 27,
+    "suit": "♦",
+    "value": "A",
+    "numericValue": 1,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 28,
+    "suit": "♦",
+    "value": "2",
+    "numericValue": 2,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 29,
+    "suit": "♦",
+    "value": "3",
+    "numericValue": 3,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 30,
+    "suit": "♦",
+    "value": "4",
+    "numericValue": 4,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 31,
+    "suit": "♦",
+    "value": "5",
+    "numericValue": 5,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 32,
+    "suit": "♦",
+    "value": "6",
+    "numericValue": 6,
+    "color": "red",
+    "isCorrect": false
+  },
+  {
+    "id": 33,
+    "suit": "♦",
+    "value": "7",
+    "numericValue": 7,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 34,
+    "suit": "♦",
+    "value": "8",
+    "numericValue": 8,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 35,
+    "suit": "♦",
+    "value": "9",
+    "numericValue": 9,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 36,
+    "suit": "♦",
+    "value": "10",
+    "numericValue": 10,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 37,
+    "suit": "♦",
+    "value": "J",
+    "numericValue": 11,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 38,
+    "suit": "♦",
+    "value": "Q",
+    "numericValue": 12,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 39,
+    "suit": "♦",
+    "value": "K",
+    "numericValue": 13,
+    "color": "red",
+    "isCorrect": true
+  },
+  {
+    "id": 40,
+    "suit": "♣",
+    "value": "A",
+    "numericValue": 1,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 41,
+    "suit": "♣",
+    "value": "2",
+    "numericValue": 2,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 42,
+    "suit": "♣",
+    "value": "3",
+    "numericValue": 3,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 43,
+    "suit": "♣",
+    "value": "4",
+    "numericValue": 4,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 44,
+    "suit": "♣",
+    "value": "5",
+    "numericValue": 5,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 45,
+    "suit": "♣",
+    "value": "6",
+    "numericValue": 6,
+    "color": "black",
+    "isCorrect": false
+  },
+  {
+    "id": 46,
+    "suit": "♣",
+    "value": "7",
+    "numericValue": 7,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 47,
+    "suit": "♣",
+    "value": "8",
+    "numericValue": 8,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 48,
+    "suit": "♣",
+    "value": "9",
+    "numericValue": 9,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 49,
+    "suit": "♣",
+    "value": "10",
+    "numericValue": 10,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 50,
+    "suit": "♣",
+    "value": "J",
+    "numericValue": 11,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 51,
+    "suit": "♣",
+    "value": "Q",
+    "numericValue": 12,
+    "color": "black",
+    "isCorrect": true
+  },
+  {
+    "id": 52,
+    "suit": "♣",
+    "value": "K",
+    "numericValue": 13,
+    "color": "black",
+    "isCorrect": true
+  }
+]
